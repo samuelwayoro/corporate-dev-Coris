@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : acs.xml
+    Created on : 14 Decembre 2007, 20:51
+    Author     : Patrick
+    Description:
+        Listage des repertoires a surveiller et des partenaires et identifiants associes
+-->
+
+<RACINE>
+<!--
+    <REPERTOIRE>
+        <ID>ENV</ID>
+        <CHEMIN>\\10.210.1.10\baladt\FICHIERENVOI\10034\REMISES_DEPOSEES</CHEMIN>
+        <EXTENSION>30-21-950.ENV</EXTENSION>
+        <PARTENAIRE>C:\systac\env\</PARTENAIRE>
+        <TACHE>org.patware.action.file.FileCopier</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>ENV</ID>
+        <CHEMIN>\\10.210.1.10\baladt\FICHIERENVOI\10034\REMISES_DEPOSEES</CHEMIN>
+        <EXTENSION>30-23-950.ENV</EXTENSION>
+        <PARTENAIRE>C:\systac\env\</PARTENAIRE>
+        <TACHE>org.patware.action.file.FileCopier</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>ENV</ID>
+        <CHEMIN>C:\systac\env\</CHEMIN>
+        <EXTENSION>30-21-950.ENV</EXTENSION>
+        <PARTENAIRE></PARTENAIRE>
+        <TACHE>acs.action.readers.SystacENVChequeAllerReader</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>ENV</ID>
+        <CHEMIN>C:\systac\env\</CHEMIN>
+        <EXTENSION>30-23-950.ENV</EXTENSION>
+        <PARTENAIRE></PARTENAIRE>
+        <TACHE>acs.action.readers.SystacENVChequeAllerReader</TACHE>
+    </REPERTOIRE>
+    -->
+    <REPERTOIRE>
+        <ID>RCP</ID>
+        <CHEMIN>C:\systac\rcp</CHEMIN>
+        <EXTENSION>30-21-324.RCP</EXTENSION>
+        <PARTENAIRE></PARTENAIRE>
+        <TACHE>clearing.action.readers.bfi.RCPChequeRetourReader</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>RCP</ID>
+        <CHEMIN>C:\systac\rcp</CHEMIN>
+        <EXTENSION>10-21-324.RCP</EXTENSION>
+        <PARTENAIRE></PARTENAIRE>
+        <TACHE>clearing.action.readers.bfi.RCPVirementRetourReader</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>emi</ID>
+        <CHEMIN>C:\systac\emi</CHEMIN>
+        <EXTENSION>emi</EXTENSION>
+        <PARTENAIRE>c:\systac\test</PARTENAIRE>
+        <TACHE>clearing.action.readers.orion.VirementEffetBIAOReader</TACHE>
+    </REPERTOIRE>
+    <REPERTOIRE>
+        <ID>rch</ID>
+        <CHEMIN>C:\systac\emi</CHEMIN>
+        <EXTENSION>rch</EXTENSION>
+        <PARTENAIRE></PARTENAIRE>
+        <TACHE>clearing.action.readers.orion.RejetChequeEffetSitReader</TACHE>
+    </REPERTOIRE>
+
+
+</RACINE>
