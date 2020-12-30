@@ -1,0 +1,12 @@
+.yui-tt {
+    visibility:hidden;
+    position:absolute;
+    color:#333;
+    background-color:#ffffff;
+    font-family:arial,helvetica,verdana,sans-serif;
+    padding:3px;
+    border:1px solid #000;
+    font:100% sans-serif;
+    width:auto;
+    opacity:50%;
+}

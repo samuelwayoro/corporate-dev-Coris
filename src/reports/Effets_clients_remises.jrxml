@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport  name="Effets_clients" pageWidth="980" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+    <property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+    <style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+    <style name="Arial_Bold" isDefault="false" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+    <style name="Arial_Header1" isDefault="false" fontName="Arial" fontSize="20" isBold="true" pdfFontName="Helvetica-Bold"/>
+    <style name="Arial_Bold_White" isDefault="false" forecolor="#FFFFFF" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+    <parameter name="LogoURL" class="java.net.URL"/>
+    <parameter name="DateImpression" class="java.lang.String"/>
+    <parameter name="IntervalDate" class="java.lang.String"/>
+    <parameter name="Auteur" class="java.lang.String"/>
+    <parameter name="PrintDetail" class="java.lang.String"/>
+    <field name="IDEFFET" class="java.lang.Integer"/>
+    <field name="REMISE" class="java.lang.Integer"/>
+    <field name="REFREMISE" class="java.lang.String"/>
+    <field name="NUMEROEFFET" class="java.lang.String"/>
+    <field name="NUMEROCOMPTE_TIRE" class="java.lang.String"/>
+    <field name="MONTANT_EFFET" class="java.lang.String"/>
+    <field name="DEVISE" class="java.lang.String"/>
+    <field name="NOM_BENEFICIAIRE" class="java.lang.String"/>
+    <field name="ETAT" class="java.lang.Integer"/>
+    <field name="BANQUE" class="java.lang.String"/>
+    <field name="AGENCE" class="java.lang.String"/>
+    <field name="BANQUEREMETTANT" class="java.lang.String"/>
+    <field name="NUMEROCOMPTE_BENEFICIAIRE" class="java.lang.String"/>
+    <field name="AGENCEREMETTANT" class="java.lang.String"/>
+    <field name="MOTIFREJET" class="java.lang.String"/>
+    <field name="DATETRAITEMENT" class="java.lang.String"/>
+    <field name="DATECOMPENSATION" class="java.lang.String"/>
+    <variable name="MontantSumGroup" class="java.lang.Double" resetType="Group" resetGroup="BreakGroup" calculation="Sum">
+        <variableExpression><![CDATA[new Double($F{MONTANT_EFFET})]]></variableExpression>
+    </variable>
+    <variable name="MontantSumReport" class="java.lang.Double" calculation="Sum">
+        <variableExpression><![CDATA[new Double($F{MONTANT_EFFET})]]></variableExpression>
+    </variable>
+
+    <group name="BreakGroup" isStartNewPage="false">
+        <groupExpression><![CDATA[$F{REMISE}]]></groupExpression>
+        <groupHeader>
+            <band height="64" isSplitAllowed="false">
+                <textField hyperlinkType="None">
+                    <reportElement style="Arial_Bold" mode="Opaque" x="0" y="24" width="695" height="15" backcolor="#E0E0E0"/>
+                    <textElement/>
+                    <textFieldExpression class="java.lang.String"><![CDATA["Effet pour la remise "+ $F{REMISE} +" avec reference "+ $F{REFREMISE} +" du Compte Crediteur " + $F{NUMEROCOMPTE_BENEFICIAIRE}]]></textFieldExpression>
+                </textField>
+                <line>
+                    <reportElement x="0" y="39" width="940" height="1"/>
+                </line>
+                <frame>
+                    <reportElement mode="Opaque" x="0" y="40" width="940" height="20" backcolor="#C0C0C0"/>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="0" y="2" width="60" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[ID EFFET]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="60" y="2" width="59" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[NUMERO EFFT]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="247" y="2" width="88" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[COMPTE DEBITEUR]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="122" y="2" width="80" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[MONTANT]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="213" y="2" width="30" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[DEVISE]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="613" y="2" width="100" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[NOM CREDITEUR]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="717" y="2" width="30" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[ETAT]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="337" y="2" width="57" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[BANQUE DEB]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="865" y="2" width="64" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[DATE TRAITEE]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="524" y="2" width="87" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[COMPTE CREDITEUR]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="790" y="2" width="71" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[DATE COMPENSE]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="754" y="2" width="30" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[MOTIF REJET]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="394" y="2" width="57" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[AGENCE DEB]]></text>
+                    </staticText>
+                    <staticText>
+                        <reportElement style="Arial_Bold_White" x="453" y="2" width="60" height="15"/>
+                        <textElement/>
+                        <text><![CDATA[AGENCE CRED]]></text>
+                    </staticText>
+                </frame>
+            </band>
+        </groupHeader>
+        <groupFooter>
+            <band height="20">
+                <staticText>
+                    <reportElement style="Arial_Bold" x="20" y="1" width="40" height="17" forecolor="#0000CC"/>
+                    <textElement>
+                        <font size="10"/>
+                    </textElement>
+                    <text><![CDATA[Nombre :]]></text>
+                </staticText>
+                <textField hyperlinkType="None">
+                    <reportElement style="Arial_Bold" x="71" y="1" width="131" height="15" forecolor="#0000CC"/>
+                    <textElement>
+                        <font size="10"/>
+                    </textElement>
+                    <textFieldExpression class="java.lang.Integer"><![CDATA[$V{BreakGroup_COUNT}]]></textFieldExpression>
+                </textField>
+                <staticText>
+                    <reportElement style="Arial_Bold" x="276" y="1" width="84" height="17" forecolor="#0000CC"/>
+                    <textElement>
+                        <font size="10"/>
+                    </textElement>
+                    <text><![CDATA[Montant Total :]]></text>
+                </staticText>
+                <textField pattern=" #,##0" hyperlinkType="None">
+                    <reportElement style="Arial_Bold" x="360" y="1" width="130" height="15" forecolor="#0000CC"/>
+                    <textElement>
+                        <font size="10"/>
+                    </textElement>
+                    <textFieldExpression class="java.lang.Double"><![CDATA[$V{MontantSumGroup}]]></textFieldExpression>
+                </textField>
+            </band>
+        </groupFooter>
+    </group>
+    <title>
+        <band height="94">
+            <image hyperlinkType="None">
+                <reportElement x="0" y="0" width="243" height="60"/>
+                <imageExpression class="java.net.URL"><![CDATA[$P{LogoURL}]]></imageExpression>
+            </image>
+            <line>
+                <reportElement x="0" y="60" width="940" height="1"/>
+            </line>
+            <staticText>
+                <reportElement style="Arial_Header1" x="0" y="60" width="445" height="30"/>
+                <textElement/>
+                <text><![CDATA[Rapport des Effets Compensation ]]></text>
+            </staticText>
+            <textField evaluationTime="Report" hyperlinkType="None">
+                <reportElement x="276" y="20" width="650" height="40"/>
+                <textElement>
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA["Il y'a " + String.valueOf($V{REPORT_COUNT}) + " ordres dans ce rapport, avec une somme totale de " + new DecimalFormat(" #,##0").format($V{MontantSumReport}.doubleValue())]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="626" y="0" width="300" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String"><![CDATA["Execute par: " + $P{Auteur} + ", le " + $P{DateImpression}]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="255" y="10" width="300" height="20"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.String"><![CDATA[$P{IntervalDate}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <detail>
+        <band height="20">
+            <printWhenExpression><![CDATA[new Boolean(String.valueOf($P{PrintDetail}).equals("ON"))]]></printWhenExpression>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="0" y="1" width="60" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{IDEFFET}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="60" y="1" width="59" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROEFFET}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="247" y="1" width="88" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROCOMPTE_TIRE}]]></textFieldExpression>
+            </textField>
+            <textField pattern=" #,##0" hyperlinkType="None">
+                <reportElement x="121" y="1" width="94" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.Double"><![CDATA[new Double($F{MONTANT_EFFET})]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="216" y="1" width="30" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{DEVISE}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="614" y="1" width="100" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{NOM_BENEFICIAIRE}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="717" y="1" width="31" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{ETAT}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="336" y="1" width="55" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{BANQUE}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="865" y="0" width="64" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{DATETRAITEMENT}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" hyperlinkType="None">
+                <reportElement x="513" y="1" width="100" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROCOMPTE_BENEFICIAIRE}]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="790" y="1" width="71" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{DATECOMPENSATION}]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="754" y="1" width="35" height="19"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{MOTIFREJET}]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="396" y="1" width="49" height="18"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{AGENCE}]]></textFieldExpression>
+            </textField>
+            <textField hyperlinkType="None">
+                <reportElement x="453" y="1" width="60" height="18"/>
+                <textElement>
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String"><![CDATA[$F{AGENCEREMETTANT}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <pageFooter>
+        <band height="30">
+            <textField hyperlinkType="None">
+                <reportElement x="784" y="10" width="75" height="20"/>
+                <textElement textAlignment="Right">
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="860" y="10" width="5" height="20"/>
+                <textElement>
+                    <font size="14"/>
+                </textElement>
+                <text><![CDATA[/]]></text>
+            </staticText>
+            <textField evaluationTime="Report" hyperlinkType="None">
+                <reportElement x="865" y="10" width="75" height="20"/>
+                <textElement>
+                    <font size="14"/>
+                </textElement>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

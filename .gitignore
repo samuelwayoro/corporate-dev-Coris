@@ -1,0 +1,19 @@
+# Created by .gitignore support plugin (hsz.mobi)
+# NetBeans specific #
+nbproject/private/
+/build/
+nbbuild/
+/dist/
+nbdist/
+nbproject/*
+!nbproject/project.properties
+!nbproject/project.xml
+nbactions.xml
+nb-configuration.xml
+# Class Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear

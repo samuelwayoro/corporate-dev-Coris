@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport  name="soldeCompense" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="190"/>
+	<style name="Title" isDefault="false" forecolor="#FFFFFF" fontName="Times New Roman" fontSize="50" isBold="false" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" isDefault="false" forecolor="#CCCCCC" fontName="Times New Roman" fontSize="18" isBold="false" pdfFontName="Times-Roman"/>
+	<style name="Column header" isDefault="false" forecolor="#666666" fontName="Times New Roman" fontSize="14" isBold="true" pdfFontName="Times-Roman"/>
+	<style name="Detail" isDefault="false" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman"/>
+	<style name="Row" isDefault="false" mode="Transparent" fontName="Times New Roman" pdfFontName="Times-Roman">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean(($V{REPORT_COUNT}).intValue()%2 == 0)]]></conditionExpression>
+			<style isDefault="false" style="Row" mode="Opaque" backcolor="#F0EFEF"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="dateCompensation" class="java.lang.String"/>
+    <parameter name="dateCompensationPrec" class="java.lang.String"/>
+	<parameter name="LogoURL" class="java.net.URL"/>
+	<parameter name="DateImpression" class="java.lang.String"/>
+	<parameter name="Auteur" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select Sum(ChqRecu) as ChqRecu  ,sum(VirementRecu) as VirementRecu,sum(EffetRecu) as EffetRecu,sum(RejetEffetRcu) as RejetEffetRcu,sum(RejetChqRecu) as RejetChqRecu,
+SUM(COALESCE (ChqRecu,0)+COALESCE (VirementRecu,0)+COALESCE (EffetRecu,0)+COALESCE (RejetEffetRcu,0)+COALESCE (RejetChqRecu,0)) AS TOTALDEBIT,
+Sum(ChqAller) as ChqAller  ,sum(VirementAller) as VirementAller,sum(EffetAller) as EffetAller,sum(RejetEffetAller) as RejetEffetAller,sum(RejetChqAller) as RejetChqAller,
+SUM(COALESCE (ChqAller,0)+COALESCE (VirementAller,0)+COALESCE (EffetAller,0)+COALESCE (RejetEffetAller,0)+COALESCE (RejetChqAller,0)) AS TOTALCREDIT,
+CONTREPARTIE
+from (
+ SELECT  
+(case when (TYPEOPERATION IN('030','031','035') AND SYNTHESE.TYPE = 'ESYI' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensationPrec},103) )  then  sum(convert(numeric,MNTTOTOPEREMIS)) end) as ChqAller,
+(case when (TYPEOPERATION IN('015','012','010','017','011') AND SYNTHESE.TYPE = 'ESYI' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPEREMIS)) end) as VirementRecu , 
+(case when (TYPEOPERATION IN ('045','046','043','042')   AND SYNTHESE.TYPE = 'ESYI' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensationPrec},103)  ) then sum(convert(numeric,MNTTOTOPEREMIS)) end) as EffetAller ,
+(case when (TYPEOPERATION IN ('130','131','135') AND SYNTHESE.TYPE = 'ESYI' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPEREMIS)) end) as RejetChqAller ,
+(case when (TYPEOPERATION IN ('140','142','143','145','146') AND SYNTHESE.TYPE = 'ESYI' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPEREMIS)) end) as RejetEffetAller ,
+(case when (TYPEOPERATION IN('030','031','035') AND SYNTHESE.TYPE = 'ESYO' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensationPrec},103) )  then  sum(convert(numeric,MNTTOTOPERRECUS)) end) as ChqRecu,
+(case when (TYPEOPERATION IN('015','012','010','017','011') AND SYNTHESE.TYPE = 'ESYO'and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPERRECUS)) end) as VirementAller , 
+(case when (TYPEOPERATION IN ('045','046','043','042')   AND SYNTHESE.TYPE = 'ESYO' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensationPrec},103)  ) then sum(convert(numeric,MNTTOTOPERRECUS)) end) as EffetRecu ,
+(case when (TYPEOPERATION IN ('130','131','135') AND SYNTHESE.TYPE = 'ESYO' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPERRECUS)) end) as RejetChqRecu ,
+(case when (TYPEOPERATION IN ('140','142','143','145','146') AND SYNTHESE.TYPE = 'ESYO' and DATEPRESENTATION=CONVERT(datetime,$P{dateCompensation},103)  ) then sum(convert(numeric,MNTTOTOPERRECUS)) end) as RejetEffetRcu  ,
+concat(concat(IDBANCON,'-'),COALESCE (BANQUES.LIBELLEBANQUE,'SYSTEME'))  AS CONTREPARTIE
+FROM SYNTHESE
+FULL OUTER JOIN BANQUES ON SYNTHESE.IDBANCON = BANQUES.CODEBANQUE
+FULL OUTER JOIN PARAMS ON SYNTHESE.TYPEOPERATION = PARAMS.VALEUR AND PARAMS.TYPE LIKE'CODE_OPERATION'
+WHERE 
+SYNTHESE.TYPE IN ( 'ESYI','ESYO')  AND SYNTHESE.IDBANCON NOT LIKE 'SNSSR' AND SYNTHESE.IDBANCON NOT LIKE '%SCN'
+GROUP BY DATEPRESENTATION,IDBANCON,TYPEOPERATION,SYNTHESE.TYPE,BANQUES.LIBELLEBANQUE) A
+Group By CONTREPARTIE order by CONTREPARTIE]]>
+	</queryString>
+	<field name="CHQRECU" class="java.math.BigDecimal"/>
+	<field name="VIREMENTRECU" class="java.math.BigDecimal"/>
+	<field name="EFFETRECU" class="java.math.BigDecimal"/>
+	<field name="REJETEFFETRCU" class="java.math.BigDecimal"/>
+	<field name="REJETCHQRECU" class="java.math.BigDecimal"/>
+	<field name="TOTALDEBIT" class="java.math.BigDecimal"/>
+	<field name="CHQALLER" class="java.math.BigDecimal"/>
+	<field name="VIREMENTALLER" class="java.math.BigDecimal"/>
+	<field name="EFFETALLER" class="java.math.BigDecimal"/>
+	<field name="REJETEFFETALLER" class="java.math.BigDecimal"/>
+	<field name="REJETCHQALLER" class="java.math.BigDecimal"/>
+	<field name="TOTALCREDIT" class="java.math.BigDecimal"/>
+	<field name="CONTREPARTIE" class="java.lang.String"/>
+	<variable name="solde" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{TOTALCREDIT}.subtract($F{TOTALDEBIT} )]]></variableExpression>
+	</variable>
+	<variable name="sumChequeRecus" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CHQRECU}]]></variableExpression>
+	</variable>
+	<variable name="sumEffetsRecus" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{EFFETRECU}]]></variableExpression>
+	</variable>
+	<variable name="sumRejetsChequesRecus" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{REJETCHQRECU}]]></variableExpression>
+	</variable>
+	<variable name="soldeVariable" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$V{solde}]]></variableExpression>
+	</variable>
+	<variable name="sumRejetEffetsRecus" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{REJETEFFETRCU}]]></variableExpression>
+	</variable>
+	<variable name="sumVirementsRecus" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{VIREMENTRECU}]]></variableExpression>
+	</variable>
+	<variable name="sumTotalDebit" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTALDEBIT}]]></variableExpression>
+	</variable>
+	<variable name="sumChequesEmis" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{CHQALLER}]]></variableExpression>
+	</variable>
+	<variable name="sumEffetsEmis" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{EFFETALLER}]]></variableExpression>
+	</variable>
+	<variable name="sumRejetsChequesEmis" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{REJETCHQALLER}]]></variableExpression>
+	</variable>
+	<variable name="sumRejetsEffetsEmis" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{REJETEFFETALLER}]]></variableExpression>
+	</variable>
+	<variable name="sumVirementsEmis" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{VIREMENTALLER}]]></variableExpression>
+	</variable>
+	<variable name="sumTotalCredit" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTALCREDIT}]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="102">
+			<image hyperlinkType="None">
+				<reportElement x="0" y="0" width="123" height="30"/>
+				<imageExpression class="java.net.URL"><![CDATA[$P{LogoURL}]]></imageExpression>
+			</image>
+			<textField hyperlinkType="None">
+				<reportElement x="497" y="0" width="300" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA["Execute par: " + $P{Auteur} + ", le " + $P{DateImpression}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="286" y="24" width="199" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[SOLDE DE REGLEMENT COMPENSE DU]]></text>
+			</staticText>
+			<textField hyperlinkType="None">
+				<reportElement x="322" y="44" width="129" height="20"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dateCompensation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="62" y="44" width="145" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPERATIONS RECUES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="614" y="44" width="132" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[OPERATIONS EMISES]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="323" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEBIT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="384" y="82" width="413" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[CREDIT]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band height="18">
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="47" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5" lineColor="#000000"/>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.5" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Cheque Recus (J -1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="47" y="0" width="42" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Effet Recu              (J-1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="145" y="0" width="61" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rejet Effet (J)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="89" y="0" width="56" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rejet Chq (j)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="268" y="0" width="55" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total Debit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="384" y="0" width="58" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Chq Aller (J-1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="442" y="0" width="59" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Effets Aller (J-1)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="564" y="0" width="61" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rejet Effet (J)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="501" y="0" width="63" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Rejets Chq (J)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="686" y="0" width="60" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Total Credit]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="0" width="61" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Virement Remis (J)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="323" y="0" width="61" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="625" y="0" width="61" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Virements Recus]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="746" y="0" width="51" height="18" forecolor="#000000"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Solde]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="797" height="18"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="0" y="0" width="47" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CHQRECU}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="46" y="0" width="43" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EFFETRECU}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="145" y="0" width="62" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REJETEFFETRCU}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="88" y="0" width="58" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REJETCHQRECU}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="268" y="0" width="55" height="18">
+						<printWhenExpression><![CDATA[new Boolean($F{TOTALDEBIT}.intValue()!=0)]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTALDEBIT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="383" y="0" width="59" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{CHQALLER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="442" y="0" width="59" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{EFFETALLER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="563" y="0" width="62" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REJETEFFETALLER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="500" y="0" width="63" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{REJETCHQALLER}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="false" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="686" y="0" width="60" height="18">
+						<printWhenExpression><![CDATA[new Boolean($F{TOTALCREDIT}.intValue()!=0)]]></printWhenExpression>
+					</reportElement>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{TOTALCREDIT}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="206" y="0" width="62" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{VIREMENTRECU}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="323" y="0" width="61" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$F{CONTREPARTIE}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+					<reportElement style="Detail" positionType="Float" x="624" y="0" width="62" height="18"/>
+					<textElement textAlignment="Center">
+						<font size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{VIREMENTALLER}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0" hyperlinkType="None">
+					<reportElement x="746" y="0" width="51" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="7"/>
+					</textElement>
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{solde}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="22">
+			<staticText>
+				<reportElement x="324" y="0" width="59" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAUX]]></text>
+			</staticText>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="46" y="0" width="42" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumEffetsRecus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="88" y="0" width="57" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumRejetsChequesRecus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" hyperlinkType="None">
+				<reportElement x="746" y="0" width="51" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{soldeVariable}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="145" y="0" width="62" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumRejetEffetsRecus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="207" y="0" width="61" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumVirementsRecus}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="268" y="0" width="56" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumTotalDebit}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="384" y="0" width="58" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumChequesEmis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="443" y="0" width="57" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumEffetsEmis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="501" y="0" width="62" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumRejetsChequesEmis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="563" y="0" width="63" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumRejetsEffetsEmis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="626" y="0" width="61" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumVirementsEmis}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0" hyperlinkType="None">
+				<reportElement x="687" y="0" width="59" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumTotalCredit}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true" hyperlinkType="None">
+				<reportElement x="0" y="0" width="46" height="20"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sumChequeRecus}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

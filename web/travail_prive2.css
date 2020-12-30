@@ -1,0 +1,429 @@
+@charset "utf-8";
+/* CSS Document */
+a {
+    color:#999999;
+}
+
+body {
+   
+    background-repeat:no-repeat;
+    background-position:center center;
+
+}
+#tableImageChequeDIV{
+    text-align:center;
+    overflow: auto;
+    width: 100%;
+    height:330px;
+   
+}
+
+#divField{
+    border: 2px gray solid;
+    color:gray;
+    font-weight:bold;
+
+}
+#divLegend{
+    border: 2px gray solid;
+    margin-left: 1em;
+    padding: 0.2em 0.8em;
+    color:gray;
+    font-weight:bold;
+}
+
+#tableObjetDIV{
+    overflow: auto;
+    width: 100%;
+    height:332px;
+    text-align:center;
+}
+
+#vignetteDIV{
+    overflow: auto;
+    width: 100%;
+    height:250px;
+    text-align:center;
+}
+
+#imageDIV{
+    overflow: auto;
+    width: 100%;
+    height:310px;
+    text-align:center;
+}
+#imageDIV2{
+    overflow: auto;
+    width: 75%;
+    height:80%;
+    text-align:center;
+    float:left;
+
+    border-top-style: outset;
+    border-bottom-style: outset;
+    border-left-style: outset;
+    border-right-style: outset;
+   
+    
+}
+#imageDIV3{
+    overflow: auto;
+    width: 70%;
+    height:230px;
+    text-align:center;
+    float:left;
+
+    border-top-style: outset;
+    border-bottom-style: outset;
+    border-left-style: outset;
+    border-right-style: outset;
+    margin-right: 2px;
+}
+#imageDIV4{
+    overflow: auto;
+    width: 75%;
+    height:310px;
+    text-align:center;
+    float:left;
+
+    
+}
+#listSignDIV{
+    overflow: auto;
+    width: 100%;
+    height:10%;
+    text-align:center;
+    float:left;
+}
+#tableSaisieChequeDIV2{
+
+    text-align:left;
+    width: 70%;
+    float:right;
+
+}
+#tableSaisieRemiseDIV2{
+
+    text-align:left;
+    width: 70%;
+    float:left;
+
+}
+#imageSignDIV{
+    overflow: auto;
+    width: 23%;
+    height:450px;
+    text-align:center;
+    float:right;
+
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-top-color: #3399ff;
+    border-bottom-color: #3399ff;
+    border-left-color: #3399ff;
+    border-right-color: #3399ff;
+    font-size: 10px;
+    font-family: Arial,Helvetica,sans-serif;
+    font-style: normal;
+}
+#imageMasterDIV{
+    overflow: auto;
+    width: 100%;
+    height:200px;
+    text-align:center;
+}
+#imageDetailDIV{
+    overflow: auto;
+    width: 100%;
+    height:200px;
+    text-align:center;
+}
+#dataDIV{
+    overflow: auto;
+    width: 100%;
+    height:200px;
+    text-align:center;
+}
+#imageSaisieDIV{
+    overflow: auto;
+    width: 100%;
+    height:250px;
+    text-align:center;
+}
+#rejetDIV{
+    text-align:right;
+    width: 100%;
+}          
+
+#tableEventDIV{
+   
+    overflow: auto;
+    width: 100%;
+    height:100%;
+}
+
+#tableDIV{
+
+    overflow: hidden;
+    width: 100%;
+    height:100%;
+}
+
+#monitorPanelDIV{
+    
+    width: 100%;         
+    text-align:center;
+}
+
+#prive_entete {
+    
+}
+
+#prive_baniere {
+    width:100%;
+    height:89px;
+    
+}
+
+
+#prive_masque_baniere{
+    background-image:url(images/fond_baniere.gif);
+    background-position:left top;
+    background-repeat:repeat-x;
+    height:9px;
+    width:100%;
+}
+
+#prive_btn_masque_baniere {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:62px;
+    height:9px;
+    background-image:url(images/btn_masque_entete.gif);
+    background-position:left top;
+    background-repeat:no-repeat;
+}
+
+#prive_btn_masque_master {
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    width:62px;
+    height:9px;
+    background-image:url(images/btn_masque_entete.gif);
+    background-position:left top;
+    background-repeat:no-repeat;
+}
+
+#prive_sous_baniere {
+    padding-left:10px;
+}
+
+#prive_arianne {
+    float:left;
+}
+#prive_docs {
+    float:right;
+}
+#prive_deconnection {
+    width:600px;
+    margin-right:0px;
+    margin-left:auto;
+}
+
+#prive_deconnection p {
+    text-align:right;
+    margin-right:125px;
+    font-weight:bold;
+    margin-top:-2px;
+}
+
+#prive_deconnection a {
+    display:block;
+    float:right;
+    width:93px;
+    height:27px;
+    background-image:url(images/deconnection.gif);
+    background-position:center center;
+    background-repeat:no-repeat;
+    margin-top:-23px;
+    font-size:x-small;
+    font-weight:bold;
+    color:#f29400;
+    padding-right:30px;
+    padding-top:9px;
+    text-align:right;
+}
+
+#prive_deconnection a:hover {
+    text-decoration:underline;
+}
+
+#prive_menu_gauche {
+    float:left;
+    clear:both;
+    width:181px;
+    background-image:url(images/menu_gauche_fond.gif);
+    background-position:right top;
+    background-repeat:repeat-y;
+    background-color:#b3cadf;
+}
+
+#prive_menu_gauche_accueil {
+    background-image:url(images/menu_gauche_haut.gif);
+    background-position:left top;
+    background-repeat:no-repeat;
+    width:114px;
+    padding-right:67px;
+    height:38px;
+    text-align:center;
+}
+
+#prive_menu_gauche_accueil a {
+    line-height:34px;
+    font-weight:bold;
+    color:#f29400;
+}
+
+#prive_menu_gauche_accueil a:hover {
+    text-decoration:underline;
+}
+
+#prive_menu_gauche_contenu {
+    width:181px;
+}
+
+#prive_menu_gauche_contenu ul {
+    padding-right:20px;
+    list-style-type:none;
+    padding-bottom:30px;
+}
+
+#prive_menu_gauche_contenu li {
+    text-align:left;
+    padding-left:10px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #FFFFFF;
+    padding-top:5px;
+    padding-bottom:5px;
+}
+
+#prive_menu_gauche_contenu li.prive_class_dernier_lien {
+    border:none;
+}
+
+#prive_menu_gauche_contenu a {
+    color:#FFFFFF;
+}
+
+#prive_menu_gauche_contenu a:hover {
+    text-decoration:underline;
+}
+
+#prive_menu_gauche_bas {
+    background-image:url(images/menu_gauche_bas.gif);
+    background-position:left bottom;
+    background-repeat:no-repeat;
+    width:181px;
+    height:10px;
+}
+
+#prive_menu_haut {
+    clear:right;
+    background-image:url(images/fond_menu_haut.gif);
+    background-position:left top;
+    background-repeat:repeat-x;
+    background-color:#b3cadf;
+}
+
+#prive_menu_haut_gauche {
+    float:left;
+    background-image:url(images/gauche_menu_haut.gif);
+    background-repeat:no-repeat;
+    background-position:left top;
+    height:37px;
+    width:22px;
+}
+
+#prive_menu_haut_contenu {
+    line-height:35px;
+    height:37px;
+    overflow:auto;
+}
+
+#prive_contenu {
+    margin-left:195px;
+}
+
+#prive_contenu_vue {
+    background-image:url(images/fond_contenu.gif);
+    background-position:left bottom;
+    background-repeat:repeat-x;
+    padding:10px;
+    padding-bottom:60px;
+    overflow:auto;
+}
+
+
+#prive_pied p {
+    clear:both;
+    text-align:center;
+    padding-top:3px;
+    padding-bottom:3px;
+    color:#a6a8a9;
+    font-size:xx-small;
+}
+
+#prive_pied p a {
+    color:#f29400;
+    font-size:xx-small;
+}
+
+#prive_pied p a:hover {
+    text-decoration:underline;
+}
+.rotate {
+
+/* Safari, Chrome */
+-webkit-transform: rotate(-90deg);
+
+/* Firefox */
+-moz-transform: rotate(-90deg);
+
+/* IE */
+-ms-transform: rotate(-90deg);
+
+/* Opera */
+-o-transform: rotate(-90deg);
+
+
+/* CSS3 standard as defined here: http://www.w3.org/TR/css3-transforms/ */
+transform: rotate(-90deg);
+
+}
+
+#progressbox {
+	position: relative;
+	width: 400px;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+
+#progressbar {
+	background-color: lightblue;
+	width: 0%;
+	height: 20px;
+	border-radius: 4px;
+}
+
+#percent {
+	position: absolute;
+	display: inline-block;
+	top: 3px;
+	left: 48%;
+}

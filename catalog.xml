@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <nextCatalog catalog="nbproject/private/cache/retriever/catalog.xml"/>
+    <system systemId="file:/D:/Documents/Work/Offres%20Techniques%20&amp;%20Financières/UBA/payment-spec.wsdl" uri="src/conf/xml-resources/web-service-references/payment-spec/wsdl/payment-spec.wsdl"/>
+    <system systemId="file:/D:/Documents/Work/Docs%20Solutions/Docs%20WebClearing/Projets%20Déploiements/Projet%20UBACI/Prelevement/payment-spec.wsdl" uri="src/conf/xml-resources/web-service-references/payment-spec/wsdl/payment-spec.wsdl"/>
+    <system systemId="file:/D:/Documents/Work/Docs%20Solutions/Docs%20WebClearing/Projets%20Déploiements/Projet%20UBA/wbs.wsdl" uri="src/conf/xml-resources/web-service-references/wbs/wsdl/wbs.wsdl"/>
+    <system systemId="file:/D:/Documents/Work/Docs%20Solutions/Docs%20WebClearing/Projets%20Déploiements/Projet%20UBA/wbs.xsd" uri="src/conf/xml-resources/web-service-references/wbs/wsdl/wbs.xsd"/>
+</catalog>

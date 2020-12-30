@@ -1,0 +1,28 @@
+body {
+   background-image: url(images/bank_logo_4.png);
+   background-color:#edf5ff;
+    background-repeat:no-repeat;
+    background-position:center center;
+    color: #999999;
+    overflow:hidden;
+    font-weight: normal;
+    background-attachment:fixed;
+    font-family: 'Lucida Handwriting','Lucida Calligraphy',Georgia,'Times New Roman',times,serif;
+}
+
+#loginDIV {  
+
+    position:fixed ; 
+    bottom: 40%;
+    right: 45%;
+    font-size: 10px;
+
+
+}
+#footer-legal {  
+    position: relative;  
+    text-align: right;
+    vertical-align: bottom;
+    font-size: 10px;
+    font-variant: small-caps;
+}

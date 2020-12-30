@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+<jasperReport  name="Cheques_clients" pageWidth="595" pageHeight="980" whenNoDataType="AllSectionsNoDetail" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+<property name="net.sf.jasperreports.print.keep.full.text" value="true"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="Arial_Header1" fontName="Arial" fontSize="20" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="Arial_Bold_White" forecolor="#FFFFFF" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<parameter name="LogoURL" class="java.net.URL"/>
+	<parameter name="DateImpression" class="java.lang.String"/>
+	<parameter name="IntervalDate" class="java.lang.String"/>
+	<parameter name="Auteur" class="java.lang.String"/>
+	<parameter name="PrintDetail" class="java.lang.String"/>
+	<field name="ETABLISSEMENT" class="java.lang.String"/>
+        <field name="LIBELLEBANQUE" class="java.lang.String"/>
+	<field name="TIREUR" class="java.lang.String"/>
+	<field name="NUMEROCHEQUE" class="java.lang.String"/>
+	<field name="DATEEMISSION" class="java.lang.String"/>
+	<field name="MONTANT" class="java.lang.String"/>
+	<field name="COMPTEREMETTANT" class="java.lang.String"/>
+	<field name="IDREMISE" class="java.math.BigDecimal"/>
+	<variable name="MontantSumGroup" class="java.lang.Double" resetType="Group" resetGroup="BreakGroup" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{MONTANT})]]></variableExpression>
+	</variable>
+	<variable name="MontantSumReport" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<group name="BreakGroup">
+		<groupExpression><![CDATA[$F{IDREMISE}]]></groupExpression>
+		<groupHeader>
+			<band height="104">
+				<textField>
+					<reportElement x="88" y="8" width="84" height="15" />
+					<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{IDREMISE}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="8" width="85" height="20" />
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Bordereau N° :]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1" y="23" width="85" height="20" />
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Client : ]]></text>
+				</staticText>
+                                <textField>
+					<reportElement x="88" y="23" width="161" height="20" />
+					<textFieldExpression><![CDATA[$F{ETABLISSEMENT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="43" width="85" height="20" />
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Compte N° :]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="88" y="43" width="161" height="20" />
+					<textFieldExpression><![CDATA[$F{COMPTEREMETTANT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="1" y="63" width="85" height="20" />
+					<textElement textAlignment="Right">
+						<font size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nbre de chèque :]]></text>
+				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="BreakGroup">
+					<reportElement x="88" y="63" width="161" height="20" />
+					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{BreakGroup_COUNT}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement x="0" y="81" width="555" height="1" />
+				</line>
+				<frame>
+					<reportElement mode="Opaque" x="1" y="83" width="555" height="20" backcolor="#C0C0C0" />
+					<staticText>
+						<reportElement style="Arial_Bold_White" x="302" y="0" width="70" height="20" />
+						<box leftPadding="5" rightPadding="5">
+							<rightPen lineWidth="1.0" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Right"/>
+						<text><![CDATA[N° DU CHEQUE]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="160" y="0" width="142" height="20" forecolor="#FFFFFF" />
+						<box leftPadding="5" rightPadding="5">
+							<rightPen lineWidth="1.0" lineColor="#000000"/>
+						</box>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[NOM DU TIRE]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="5" y="0" width="155" height="18" forecolor="#FFFFFF" />
+						<box leftPadding="5" rightPadding="5">
+							<rightPen lineWidth="1.0" lineColor="#000000"/>
+						</box>
+						<textElement>
+							<font isBold="true"/>
+						</textElement>
+						<text><![CDATA[BANQUE DU TIRE]]></text>
+					</staticText>
+				</frame>
+				<staticText>
+					<reportElement style="Arial_Bold_White" x="458" y="82" width="96" height="19" />
+					<box leftPadding="5" rightPadding="5">
+						<rightPen lineWidth="0.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right"/>
+					<text><![CDATA[MONTANT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="375" y="82" width="84" height="19" forecolor="#FFFFFF" />
+					<box leftPadding="5" rightPadding="5">
+						<rightPen lineWidth="1.0" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right">
+						<font isBold="true"/>
+					</textElement>
+					<text><![CDATA[DATE D'EMISSION DU CHEQUE]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="106">
+				<staticText>
+					<reportElement style="Arial_Bold" x="374" y="1" width="84" height="17" forecolor="#0000CC" />
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<text><![CDATA[Montant Total :]]></text>
+				</staticText>
+				<textField pattern=" #,##0">
+					<reportElement style="Arial_Bold" x="458" y="1" width="98" height="17" forecolor="#0000CC" />
+					<box leftPadding="5" rightPadding="5"/>
+					<textElement textAlignment="Right">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression class="java.lang.Double"><![CDATA[$V{MontantSumGroup}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="80">
+			<image>
+				<reportElement x="0" y="0" width="243" height="60" />
+				<imageExpression class="java.net.URL"><![CDATA[$P{LogoURL}]]></imageExpression>
+			</image>
+			<line>
+				<reportElement x="0" y="60" width="553" height="1" />
+			</line>
+			<staticText>
+				<reportElement style="Arial_Header1" x="243" y="30" width="310" height="30" />
+				<textElement textAlignment="Center">
+					<font size="17"/>
+				</textElement>
+				<text><![CDATA[Rapport des remises]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="249" y="10" width="136" height="20" />
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Execute par: " + $P{Auteur}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="417" y="10" width="21" height="20" />
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[le]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="438" y="10" width="100" height="20" />
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{DateImpression}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="34">
+			<printWhenExpression><![CDATA[new Boolean(String.valueOf($P{PrintDetail}).equals("ON"))]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="162" height="33" />
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LIBELLEBANQUE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="304" y="1" width="70" height="33" />
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NUMEROCHEQUE}]]></textFieldExpression>
+			</textField>
+			<textField pattern=" #,##0">
+				<reportElement x="458" y="1" width="96" height="33" />
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Double"><![CDATA[new Double($F{MONTANT})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="374" y="1" width="84" height="33" />
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATEEMISSION}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="1" width="142" height="33" />
+				<box leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TIREUR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="91">
+			<textField>
+				<reportElement x="478" y="71" width="33" height="20" />
+				<textElement textAlignment="Right">
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="511" y="71" width="5" height="20" />
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[/]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="516" y="71" width="39" height="20"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="196" height="20" />
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Cachet et signature de la banque]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="1" width="149" height="21" />
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[Signature du client]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

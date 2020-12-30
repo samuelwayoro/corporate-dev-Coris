@@ -1,0 +1,48 @@
+{
+    "name": "Tooltip",
+    "type": "yahoo",
+    "version": "1.0",
+    "jmakiVersion" : "1.0",
+    "image": "images/yahoo-tooltip.jpg",
+    "description": "A simple tooltip",
+    "args": [
+    {"topic":{"type":"STRING", "defaultValue": "/yahoo/tooltip", "description": "The topic published to"}},
+    {"text":{"type":"STRING", "defaultValue": "<b>Default Tooltip text</b>" , "description": "html tooltip text"}},
+    {"showDelay":{"type":"NUMBER", "defaultValue": 200, "description": "milliseconds to wait before showing a tooltip on mouseover"}},
+    {"hideDelay":{"type":"NUMBER", "defaultValue": 250, "description": "milliseconds to wait before hiding a tooltip on mouseover"}},
+    {"autodismissdelay":{"type":"NUMBER", "defaultValue": 5000, "description": "milliseconds to wait before hiding a tooltip after showing it"}},
+    {"effect": {
+         "type":"STRING", 
+         "defaultValue": "NONE", 
+         "description": "Animation effect type",
+         "values": [
+         {"value": "NONE", "description": "No animation effects"},
+         {"value": "SLIDE","description": "Slide animation effect"},
+         {"value": "FADE","description": "Fade animation effect"},
+         {"value": "BOTH","description": "Slide and fade animation effect"}
+         ]
+     }}    
+    ],
+    "value": {
+        "required":"true",
+        "type": "OBJECT",
+        "defaultValue":{ }
+    },    
+    "config" : {
+        "type": {
+            "id" : "yahoo.tooltip",
+            "libs": [
+            "../resources/libs/yahoo/v2.6.0/yahoo-dom-event/yahoo-dom-event.js",
+            "../resources/libs/yahoo/v2.6.0/animation/animation-min.js",
+            "../resources/libs/yahoo/v2.6.0/container/container-min.js",
+            "../resources/libs/yahoo/v2.6.0/connection/connection-min.js"
+            ], 
+            "styles": [
+            "../resources/libs/yahoo/v2.6.0/container/assets/container.css"
+            ],
+            "resources": [
+            "../resources/libs/yahoo/v2.6.0/container/assets"
+            ]
+        }
+    }
+}
