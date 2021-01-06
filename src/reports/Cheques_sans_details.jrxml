@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-<jasperReport  name="Cheques" pageWidth="980" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Cheques" pageWidth="980" pageHeight="595" orientation="Landscape" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="30" bottomMargin="30" uuid="7d190cfe-a42a-4a42-9557-0b16d8f305e2">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Arial_Normal" isDefault="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="Arial_Bold" isDefault="false" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
-	<style name="Arial_Header1" isDefault="false" fontName="Arial" fontSize="20" isBold="true" pdfFontName="Helvetica-Bold"/>
-	<style name="Arial_Bold_White" isDefault="false" forecolor="#FFFFFF" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="Arial_Bold" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="Arial_Header1" fontName="Arial" fontSize="20" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="Arial_Bold_White" forecolor="#FFFFFF" fontName="Arial" fontSize="8" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<parameter name="LogoURL" class="java.net.URL"/>
 	<parameter name="DateImpression" class="java.lang.String"/>
 	<parameter name="IntervalDate" class="java.lang.String"/>
@@ -36,286 +38,266 @@
 	<group name="BanqueGroup" minHeightToStartNewPage="104">
 		<groupExpression><![CDATA[$F{BANQUEREMETTANT}]]></groupExpression>
 	</group>
-	<group name="BreakGroup" isStartNewPage="false">
+	<group name="BreakGroup">
 		<groupExpression><![CDATA[$F{BANQUE}]]></groupExpression>
 		<groupHeader>
-			<band height="64" isSplitAllowed="false">
-                
-				<textField hyperlinkType="None">
-					<reportElement style="Arial_Bold" mode="Opaque" x="0" y="24" width="695" height="15" backcolor="#E0E0E0"/>
-					<textElement/>
-					<textFieldExpression class="java.lang.String"><![CDATA["Cheques pour la Banque Crediteur " + $F{BANQUEREMETTANT} +"(" + $F{LIBELLEBANQUEREMETTANT} +") et Banque Debiteur "+ $F{BANQUE} +"("+ $F{LIBELLEBANQUE}+")"]]></textFieldExpression>
+			<band height="64" splitType="Prevent">
+				<textField>
+					<reportElement style="Arial_Bold" mode="Opaque" x="0" y="24" width="695" height="15" backcolor="#E0E0E0" uuid="cc6255c9-6673-44c7-834f-7939588b3f9c"/>
+					<textFieldExpression><![CDATA["Cheques pour la Banque Crediteur " + $F{BANQUEREMETTANT} +"(" + $F{LIBELLEBANQUEREMETTANT} +") et Banque Debiteur "+ $F{BANQUE} +"("+ $F{LIBELLEBANQUE}+")"]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement x="0" y="39" width="940" height="1"/>
+					<reportElement x="0" y="39" width="940" height="1" uuid="049426b6-0124-4dce-b5df-51ba9c7c545c"/>
 				</line>
 				<frame>
-                    
-					<reportElement mode="Opaque" x="0" y="40" width="940" height="20" backcolor="#C0C0C0"/>
+					<reportElement mode="Opaque" x="0" y="40" width="940" height="20" backcolor="#C0C0C0" uuid="e7d8e1ca-004a-418d-bed3-5f60cd2b33dd"/>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="0" y="2" width="60" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="0" y="2" width="60" height="15" uuid="5a9eec9f-17ab-4b81-a6df-fada074f16a2"/>
 						<text><![CDATA[ID CHEQUE]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="60" y="2" width="59" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="60" y="2" width="59" height="15" uuid="d15756d9-a59f-4b71-b39c-64a9d0382d92"/>
 						<text><![CDATA[NUMERO CHQ]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="247" y="2" width="88" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="247" y="2" width="88" height="15" uuid="76e97d5a-ae4e-41e2-b03d-1a7454b9dfe6"/>
 						<text><![CDATA[COMPTE DEBITEUR]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="122" y="2" width="80" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="122" y="2" width="80" height="15" uuid="14d4e956-4ad5-4ddf-a264-4fcc6b0cf468"/>
 						<text><![CDATA[MONTANT]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="213" y="2" width="30" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="213" y="2" width="30" height="15" uuid="a075dba0-6ddd-45fd-b236-51b8d8fc749d"/>
 						<text><![CDATA[DEVISE]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="613" y="2" width="100" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="613" y="2" width="100" height="15" uuid="66342f3d-bb74-4c95-8e6e-ed9e7f90a28a"/>
 						<text><![CDATA[NOM CREDITEUR]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="717" y="2" width="30" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="717" y="2" width="30" height="15" uuid="bd5c70e8-72f6-4f51-a004-bbc47a6ded88"/>
 						<text><![CDATA[ETAT]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="337" y="2" width="57" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="337" y="2" width="57" height="15" uuid="6ae9aa2a-8576-449f-9ef5-a440f55b7f97"/>
 						<text><![CDATA[BANQUE DEB]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="865" y="2" width="64" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="865" y="2" width="64" height="15" uuid="297499e0-294d-444c-91c4-7e06aa75dfa0"/>
 						<text><![CDATA[DATE TRAITEE]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="524" y="2" width="87" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="524" y="2" width="87" height="15" uuid="8b51fb0f-3945-4e08-a17e-bb39c4ab1e9a"/>
 						<text><![CDATA[COMPTE CREDITEUR]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="790" y="2" width="71" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="790" y="2" width="71" height="15" uuid="6e158673-278a-4d10-8a4e-0541de29ed48"/>
 						<text><![CDATA[DATE COMPENSE]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="754" y="2" width="30" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="754" y="2" width="30" height="15" uuid="0c6ba2ff-626a-41d7-afe2-07e6236767a2"/>
 						<text><![CDATA[MOTIF REJET]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="394" y="2" width="57" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="394" y="2" width="57" height="15" uuid="417766d9-826d-4b99-8f7f-865f80e3d117"/>
 						<text><![CDATA[AGENCE DEB]]></text>
 					</staticText>
 					<staticText>
-						<reportElement style="Arial_Bold_White" x="453" y="2" width="60" height="15"/>
-						<textElement/>
+						<reportElement style="Arial_Bold_White" x="453" y="2" width="60" height="15" uuid="395e0769-a3f2-4c6d-9e2a-83e1eafdadca"/>
 						<text><![CDATA[AGENCE CRED]]></text>
 					</staticText>
 				</frame>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="20">
+			<band height="20" splitType="Stretch">
 				<staticText>
-					<reportElement style="Arial_Bold" x="20" y="1" width="40" height="17" forecolor="#0000CC"/>
+					<reportElement style="Arial_Bold" x="20" y="1" width="40" height="17" forecolor="#0000CC" uuid="62cf3b6a-e00d-4a3e-a00e-3be9e419f692"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
 					<text><![CDATA[Nombre :]]></text>
 				</staticText>
-				<textField hyperlinkType="None">
-					<reportElement style="Arial_Bold" x="71" y="1" width="131" height="15" forecolor="#0000CC"/>
+				<textField>
+					<reportElement style="Arial_Bold" x="71" y="1" width="131" height="15" forecolor="#0000CC" uuid="b12492c3-7e28-4ca5-9ddb-b4abfc3d420a"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Integer"><![CDATA[$V{BreakGroup_COUNT}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{BreakGroup_COUNT}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement style="Arial_Bold" x="276" y="1" width="84" height="17" forecolor="#0000CC"/>
+					<reportElement style="Arial_Bold" x="276" y="1" width="84" height="17" forecolor="#0000CC" uuid="0adb29ce-12ee-4303-8cce-b90b35d29fbb"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
 					<text><![CDATA[Montant Total :]]></text>
 				</staticText>
-				<textField pattern=" #,##0" hyperlinkType="None">
-					<reportElement style="Arial_Bold" x="360" y="1" width="130" height="15" forecolor="#0000CC"/>
+				<textField pattern=" #,##0">
+					<reportElement style="Arial_Bold" x="360" y="1" width="130" height="15" forecolor="#0000CC" uuid="e39a9f8c-8cc7-44fe-b886-f93f53970269"/>
 					<textElement>
 						<font size="10"/>
 					</textElement>
-					<textFieldExpression class="java.lang.Double"><![CDATA[$V{MontantSumGroup}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$V{MontantSumGroup}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupFooter>
 	</group>
 	<title>
-		<band height="94">
-			<image hyperlinkType="None">
-				<reportElement x="0" y="0" width="243" height="60"/>
-				<imageExpression class="java.net.URL"><![CDATA[$P{LogoURL}]]></imageExpression>
+		<band height="94" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="243" height="60" uuid="811f9f20-d399-4c31-9eb7-abc041202d86"/>
+				<imageExpression><![CDATA[$P{LogoURL}]]></imageExpression>
 			</image>
 			<line>
-				<reportElement x="0" y="60" width="940" height="1"/>
+				<reportElement x="0" y="60" width="940" height="1" uuid="425ecfb7-592d-4962-838f-c97b46520fe2"/>
 			</line>
 			<staticText>
-				<reportElement style="Arial_Header1" x="0" y="60" width="445" height="30"/>
-				<textElement/>
+				<reportElement style="Arial_Header1" x="0" y="60" width="445" height="30" uuid="fb4ba0fd-36f5-4948-a0e3-1d2798049036"/>
 				<text><![CDATA[Rapport des cheques Compensation ]]></text>
 			</staticText>
-			<textField evaluationTime="Report" hyperlinkType="None">
-				<reportElement x="276" y="20" width="650" height="40"/>
+			<textField evaluationTime="Report">
+				<reportElement x="276" y="20" width="650" height="40" uuid="70e861e7-7d63-43cf-8769-083ef31e154f"/>
 				<textElement>
 					<font size="14" isBold="true"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA["Il y'a " + String.valueOf($V{REPORT_COUNT}) + " ordres dans ce rapport, avec une somme totale de " + new DecimalFormat(" #,##0").format($V{MontantSumReport}.doubleValue())]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Il y'a " + String.valueOf($V{REPORT_COUNT}) + " ordres dans ce rapport, avec une somme totale de " + new DecimalFormat(" #,##0").format($V{MontantSumReport}.doubleValue())]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="626" y="0" width="300" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA["Execute par: " + $P{Auteur} + ", le " + $P{DateImpression}]]></textFieldExpression>
+			<textField>
+				<reportElement x="626" y="0" width="300" height="20" uuid="df8da294-9a48-46f3-b13d-95faf37facf0"/>
+				<textFieldExpression><![CDATA["Execute par: " + $P{Auteur} + ", le " + $P{DateImpression}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="255" y="10" width="300" height="20"/>
-				<textElement/>
-				<textFieldExpression class="java.lang.String"><![CDATA[$P{IntervalDate}]]></textFieldExpression>
+			<textField>
+				<reportElement x="255" y="10" width="300" height="20" uuid="92e96ce4-18c4-48a4-bc05-cd864e84b55a"/>
+				<textFieldExpression><![CDATA[$P{IntervalDate}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
 	<detail>
-		<band height="20">
+		<band height="20" splitType="Stretch">
 			<printWhenExpression><![CDATA[new Boolean(String.valueOf($P{PrintDetail}).equals("ON"))]]></printWhenExpression>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="0" y="1" width="60" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="1" width="60" height="19" uuid="75b7e958-0f32-4934-8bb3-f46e4157a827"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{IDCHEQUE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{IDCHEQUE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="60" y="1" width="59" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="60" y="1" width="59" height="19" uuid="13bc7eab-41ba-45b4-bc77-3be3370582be"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROCHEQUE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NUMEROCHEQUE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="247" y="1" width="88" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="247" y="1" width="88" height="19" uuid="16c07cca-fab0-4ecb-8111-24a34872739a"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{NUMEROCOMPTE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NUMEROCOMPTE}]]></textFieldExpression>
 			</textField>
-			<textField pattern=" #,##0" hyperlinkType="None">
-				<reportElement x="121" y="1" width="94" height="19"/>
+			<textField pattern=" #,##0">
+				<reportElement x="121" y="1" width="94" height="19" uuid="81074f8b-c5d7-430d-9910-0cfa703f33a5"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Double"><![CDATA[new Double($F{MONTANTCHEQUE})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[new Double($F{MONTANTCHEQUE})]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="216" y="1" width="30" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="216" y="1" width="30" height="19" uuid="0a4ae484-a25b-4415-a7d4-b9ef08b1af93"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{DEVISE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DEVISE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="614" y="1" width="100" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="614" y="1" width="100" height="19" uuid="af6ddf06-c5f2-4733-b933-00a7dbb5b040"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{NOMBENEFICIAIRE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{NOMBENEFICIAIRE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="717" y="1" width="31" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="717" y="1" width="31" height="19" uuid="0e078fb7-bac6-4f5b-8f9e-5ab63b9218ad"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{ETAT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{ETAT}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="336" y="1" width="55" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="336" y="1" width="55" height="19" uuid="36fba85e-4264-46d8-8d0b-754c99591232"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{BANQUE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{BANQUE}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="865" y="0" width="64" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="865" y="0" width="64" height="19" uuid="b9abf4e6-1306-4aa8-93d4-74008798da66"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATETRAITEMENT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DATETRAITEMENT}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true" hyperlinkType="None">
-				<reportElement x="513" y="1" width="100" height="19"/>
+			<textField isBlankWhenNull="true">
+				<reportElement x="513" y="1" width="100" height="19" uuid="b35521f0-ca3a-4e6d-8f58-a81820f69370"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{COMPTEREMETTANT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{COMPTEREMETTANT}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="790" y="1" width="71" height="19"/>
+			<textField>
+				<reportElement x="790" y="1" width="71" height="19" uuid="d9a6bcb0-618d-4176-9128-4079462d07e7"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{DATECOMPENSATION}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{DATECOMPENSATION}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="754" y="1" width="35" height="19"/>
+			<textField>
+				<reportElement x="754" y="1" width="35" height="19" uuid="873ea454-8ab6-4f1c-85a4-69eb60f75ef7"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{MOTIFREJET}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MOTIFREJET}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="396" y="1" width="49" height="18"/>
+			<textField>
+				<reportElement x="396" y="1" width="49" height="18" uuid="661f55f0-d8c1-4354-a268-fe1baa73c549"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{AGENCE}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AGENCE}]]></textFieldExpression>
 			</textField>
-			<textField hyperlinkType="None">
-				<reportElement x="453" y="1" width="60" height="18"/>
+			<textField>
+				<reportElement x="453" y="1" width="60" height="18" uuid="2c22974f-a56e-423e-9171-af4b2fe22e48"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
-				<textFieldExpression class="java.lang.String"><![CDATA[$F{AGENCEREMETTANT}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{AGENCEREMETTANT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
 	<pageFooter>
-		<band height="30">
-			<textField hyperlinkType="None">
-				<reportElement x="784" y="10" width="75" height="20"/>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="784" y="10" width="75" height="20" uuid="d7f08587-230d-4c39-8017-f92d782c94d4"/>
 				<textElement textAlignment="Right">
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="860" y="10" width="5" height="20"/>
+				<reportElement x="860" y="10" width="5" height="20" uuid="78141fb1-743d-4c28-bb8e-d178dc181b0a"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[/]]></text>
 			</staticText>
-			<textField evaluationTime="Report" hyperlinkType="None">
-				<reportElement x="865" y="10" width="75" height="20"/>
+			<textField evaluationTime="Report">
+				<reportElement x="865" y="10" width="75" height="20" uuid="728feca5-5673-4616-85be-546033a516ce"/>
 				<textElement>
 					<font size="14"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

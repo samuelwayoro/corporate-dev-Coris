@@ -43,15 +43,29 @@
                 if (sequences != null && sequences.length > 0) {
                     out.print("<BR><B><h1>Vous avez " + sequences.length + " chèque(s) scanné(s) avec bordereaux à saisir</h1><B>");
                 }
-
-                sql = "SELECT * FROM REMISES WHERE ETAT=" + Utility.getParam("CETAOPEVAL")
+                
+                //affichage de nombre de cheques a valider par le valideur corporate
+                /*sql = "SELECT * FROM REMISES WHERE ETAT=" + Utility.getParam("CETAOPEVAL")
                         + " AND AGENCEDEPOT='" + user.getAdresse().trim() + "'"
+                        + " AND (VALIDEUR='' OR VALIDEUR IS NULL OR VALIDEUR = '" + user.getLogin().trim() + "')";
+                */
+                sql = "SELECT * FROM REMISES WHERE ETAT=" + Utility.getParam("CETAOPEVALITE")
+                        + " AND ETABLISSEMENT= '" + user.getAdresse().trim() + "'"
                         + " AND (VALIDEUR='' OR VALIDEUR IS NULL OR VALIDEUR = '" + user.getLogin().trim() + "')";
                 remises = (Remises[]) db.retrieveRowAsObject(sql, new Remises());
                 if (remises != null && remises.length > 0) {
                     out.print("<BR><B><h1>Il reste " + remises.length + " remise(s) disponible(s) à la validation</h1><B>");
                 }
-
+                
+                //affichage de nombre de cheques a valider par le valideur banque 
+                sql = "SELECT * FROM REMISES WHERE ETAT ="+Utility.getParam("CETAOPEVAL") 
+                        +"AND ETABLISSEMENT != '"+user.getAdresse().trim() + "'"
+                        + " AND (VALIDEUR='' OR VALIDEUR IS NULL OR  VALIDEUR IN (select trim(login) from utilisateurs  where poids=4))";
+                remises = (Remises[]) db.retrieveRowAsObject(sql, new Remises());
+                if (remises != null && remises.length > 0) {
+                    out.print("<BR><B><h1>Il reste " + remises.length + " remise(s) disponible(s) à la validation</h1><B>");
+                }
+                
                 db.close();
             }
 
